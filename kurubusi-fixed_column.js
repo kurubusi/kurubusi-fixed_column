@@ -101,7 +101,6 @@
 	};
 	
 	fixedColumn.prototype.settingObj = function () {
-		
 		this.dval = {
 			obj_top: (document.documentElement.scrollTop || document.body.scrollTop) + (this.obj.getBoundingClientRect()).top,
 			obj_left: (this.obj.getBoundingClientRect()).left,
@@ -110,23 +109,17 @@
 			obj_margin_left: parseFloat(objtComputedStyle(this.obj, 'marginLeft')) || 0,
 			obj_margin_bottom: parseFloat(objtComputedStyle(this.obj, 'marginBottom')) || 0,
 			cut_margin_top: parseFloat(objtComputedStyle(this.cut, 'marginTop')) || 0,
+			obj_width: Math.round(parseFloat(objtComputedStyle(this.obj, 'width'))),
 			dclass: this.obj.getAttribute('class'),
 			zindex: (objtComputedStyle(this.cut, 'zIndex') === 'auto') ? 10 : objtComputedStyle(this.cut, 'zIndex') +1,
 		};
 		
-		
-		var userAgent = window.navigator.userAgent.toLowerCase();
-		if (userAgent.match(/(msie|MSIE)/) || userAgent.match(/(T|t)rident/)) {
-			this.dval.obj_width = Math.round(parseFloat(objtComputedStyle(this.obj, 'width'))) + ( parseFloat(objtComputedStyle(this.obj, 'paddingLeft')) + parseFloat(objtComputedStyle(this.obj, 'paddingRight')) + parseFloat(objtComputedStyle(this.obj, 'borderLeftWidth')) + parseFloat(objtComputedStyle(this.obj, 'borderRightWidth'))  );
-		} else {
-			this.dval.obj_width = Math.round(parseFloat(objtComputedStyle(this.obj, 'width')));
-		}
+		console.log(document.defaultView.getComputedStyle(this.obj, '')['opacity']);
 		
 		var newclass = this.dval.dclass.replace('kfc_obj', '');
 		if (!this.shadow) {
 			this.shadow = this.obj.cloneNode(true);
 		}
-		
 		this.shadow.style.display = 'none';
 		this.shadow.style.position = 'fixed';
 		this.shadow.style.bottom = '15px';
