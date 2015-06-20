@@ -84,6 +84,8 @@
 			return cut;
 		}());
 		
+		this.ddisplay = objtComputedStyle(this.obj, 'display') || 'block',
+		this.dopacity = objtComputedStyle(this.obj, 'opacity') || '1.0',
 		this.settingObj();
 		
 		(function(this_) {
@@ -107,11 +109,13 @@
 			obj_margin_left: parseFloat(objtComputedStyle(this.obj, 'marginLeft')) || 0,
 			obj_margin_bottom: parseFloat(objtComputedStyle(this.obj, 'marginBottom')) || 0,
 			cut_margin_top: parseFloat(objtComputedStyle(this.cut, 'marginTop')) || 0,
-			ddisplay: this.obj.style.display || 'block',
-			dopacity: this.obj.style.opacity || '1.0',
+			obj_width: Math.round(parseFloat(objtComputedStyle(this.obj, 'width'))),
 			dclass: this.obj.getAttribute('class'),
 			zindex: (objtComputedStyle(this.cut, 'zIndex') === 'auto') ? 10 : objtComputedStyle(this.cut, 'zIndex') +1,
 		};
+		
+		console.log(document.defaultView.getComputedStyle(this.obj, '')['opacity']);
+		
 		var newclass = this.dval.dclass.replace('kfc_obj', '');
 		if (!this.shadow) {
 			this.shadow = this.obj.cloneNode(true);
@@ -119,6 +123,7 @@
 		this.shadow.style.display = 'none';
 		this.shadow.style.position = 'fixed';
 		this.shadow.style.bottom = '15px';
+		this.shadow.style.width = this.dval.obj_width + 'px';
 		this.shadow.style.left = ( this.dval.obj_left - this.dval.obj_margin_left ) + 'px';
 		this.shadow.setAttribute('class', newclass);
 		document.body.appendChild(this.shadow);
@@ -138,16 +143,16 @@
 		if ( scroll_bottom >= ( this.dval.obj_top + obj_height ) ) {
 			if ( scroll_bottom >= this.dval.cut_top ) {
 				this.obj.style.opacity = '0.0';
-				this.shadow.style.display = this.dval.ddisplay;
+				this.shadow.style.display = this.ddisplay;
 				this.shadow.style.bottom = ( scroll_bottom - this.dval.cut_top ) + this.dval.cut_margin_top + 'px';
 			} else {
 				this.obj.style.opacity = '0.0';
-				this.shadow.style.display = this.dval.ddisplay;
+				this.shadow.style.display = this.ddisplay;
 				this.shadow.style.bottom = this.dval.cut_margin_top + 'px';
 			}
 		} else {
 			this.shadow.style.display = 'none';
-			this.obj.style.opacity = this.dval.dopacity;
+			this.obj.style.opacity = this.dopacity;
 		}
 		
 		return this;
