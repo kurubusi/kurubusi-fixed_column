@@ -110,7 +110,7 @@
 			ddisplay: this.obj.style.display || 'block',
 			dopacity: this.obj.style.opacity || '1.0',
 			dclass: this.obj.getAttribute('class'),
-			zindex: (objtComputedStyle(this.cut, 'zIndex') === 'auto') ? 100 : objtComputedStyle(this.cut, 'zIndex') +1,
+			zindex: (objtComputedStyle(this.cut, 'zIndex') === 'auto') ? 10 : objtComputedStyle(this.cut, 'zIndex') +1,
 		};
 		var newclass = this.dval.dclass.replace('kfc_obj', '');
 		if (!this.shadow) {
@@ -139,11 +139,11 @@
 			if ( scroll_bottom >= this.dval.cut_top ) {
 				this.obj.style.opacity = '0.0';
 				this.shadow.style.display = this.dval.ddisplay;
-				this.shadow.style.bottom = ( scroll_bottom - this.dval.cut_top ) + 'px';
+				this.shadow.style.bottom = ( scroll_bottom - this.dval.cut_top ) + this.dval.cut_margin_top + 'px';
 			} else {
 				this.obj.style.opacity = '0.0';
 				this.shadow.style.display = this.dval.ddisplay;
-				this.shadow.style.bottom = this.dval.obj_margin_bottom + 'px';
+				this.shadow.style.bottom = this.dval.cut_margin_top + 'px';
 			}
 		} else {
 			this.shadow.style.display = 'none';
