@@ -146,7 +146,7 @@
 				shadow_top = scroll_top + rect_shadow.top,
 				shadow_height =  parseFloat(objtComputedStyle(this.shadow, 'height')),
 				cut_top = (document.documentElement.scrollTop || document.body.scrollTop) + (this.cut.getBoundingClientRect()).top;
-		
+		 
 		if ( scroll_bottom >= ( this.dval.obj_top + obj_height ) ) {
 			if ( scroll_bottom >= cut_top ) {
 				this.obj.style.opacity = '0.0';
