@@ -105,7 +105,6 @@
 		this.dval = {
 			obj_top: (document.documentElement.scrollTop || document.body.scrollTop) + (this.obj.getBoundingClientRect()).top,
 			obj_left: (this.obj.getBoundingClientRect()).left,
-			cut_top: (document.documentElement.scrollTop || document.body.scrollTop) + (this.cut.getBoundingClientRect()).top,
 			obj_margin_top: parseFloat(objtComputedStyle(this.obj, 'marginTop')) || 0,
 			obj_margin_left: parseFloat(objtComputedStyle(this.obj, 'marginLeft')) || 0,
 			obj_margin_bottom: parseFloat(objtComputedStyle(this.obj, 'marginBottom')) || 0,
@@ -145,13 +144,14 @@
 				obj_height =  parseFloat(objtComputedStyle(this.obj, 'height')),
 				rect_shadow = this.shadow.getBoundingClientRect(),
 				shadow_top = scroll_top + rect_shadow.top,
-				shadow_height =  parseFloat(objtComputedStyle(this.shadow, 'height'));
+				shadow_height =  parseFloat(objtComputedStyle(this.shadow, 'height')),
+				cut_top = (document.documentElement.scrollTop || document.body.scrollTop) + (this.cut.getBoundingClientRect()).top;
 		
 		if ( scroll_bottom >= ( this.dval.obj_top + obj_height ) ) {
-			if ( scroll_bottom >= this.dval.cut_top ) {
+			if ( scroll_bottom >= cut_top ) {
 				this.obj.style.opacity = '0.0';
 				this.shadow.style.display = this.ddisplay;
-				this.shadow.style.bottom = ( scroll_bottom - this.dval.cut_top ) + this.dval.cut_margin_top + 'px';
+				this.shadow.style.bottom = ( scroll_bottom - cut_top ) + this.dval.cut_margin_top + 'px';
 			} else {
 				this.obj.style.opacity = '0.0';
 				this.shadow.style.display = this.ddisplay;
